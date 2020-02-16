@@ -1,4 +1,5 @@
 {
+  "version": "1.2.0"
   "author": {
     "name": "GhostDev"
   },
@@ -11,6 +12,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "epub-gen": "^0.1.0",
+    "require-all": "^3.0.0",
+    "requireall": "^1.0.0",
     "yargs": "^15.1.0"
   },
   "description": "A script to download and format Literotica stories",
@@ -46,5 +49,4 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.1.6"
 }
