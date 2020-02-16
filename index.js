@@ -30,7 +30,7 @@ var argv = yargs
     .alias('help', 'h')
     .argv;
 
-exports.debug = function(message) {if (argv.debug) {console.debug("[DEBUG]: "+message);}}; if (argv.debug) {console.log(argv);}
+exports.debug = function(message, inline) {var inline = inline || false; if (argv.debug) {if (inline) {process.stdout.write(message);} else {console.debug("[DEBUG]: "+message);}}};
 exports.stop = function() {timers.clearInterval(workIndicator);}
 var workIndicator = timers.setInterval(function() {process.stdout.write(".");}, 1000);
 scraper(argv);

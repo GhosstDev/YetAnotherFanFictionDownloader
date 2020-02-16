@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0"
+  "version": "1.2.4",
   "author": {
     "name": "GhostDev"
   },
@@ -7,25 +7,25 @@
     "yaffs": "./index.js"
   },
   "bugs": {
-    "url": "https://github.com/GhosstDev/YetAnotherFanficScrapper/issues"
+    "url": "https://github.com/GhosstDev/YetAnotherFanFictionScraper/issues"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "epub-gen": "^0.1.0",
     "require-all": "^3.0.0",
-    "requireall": "^1.0.0",
     "yargs": "^15.1.0"
   },
   "description": "A script to download and format Literotica stories",
   "devDependencies": {},
   "directories": {},
-  "homepage": "https://github.com/GhosstDev/YetAnotherFanficScrapper#readme",
+  "homepage": "https://github.com/GhosstDev/YetAnotherFanFictionScraper#readme",
   "keywords": [
-    "Literotica",
-    "Fanfiction",
-    "Fanfic",
-    "Scrapper",
-    "Fanfiction.net",
+    "literotica",
+    "fanfiction",
+    "fanfic",
+    "scraper",
+    "fanfiction.net",
     "downloader",
     "literodown",
     "literotica-downloader",
@@ -44,9 +44,9 @@
   "readme": "readme.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GhosstDev/YetAnotherFanficScrapper.git"
+    "url": "git+https://github.com/GhosstDev/YetAnotherFanFictionScraper.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  }
 }
