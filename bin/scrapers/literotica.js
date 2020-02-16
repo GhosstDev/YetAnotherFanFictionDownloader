@@ -2,7 +2,6 @@ var request = require("request");
 var path = require("path");
 var cheerio = require("cheerio");
 var epub = require('epub-gen');
-var fs = require('fs');
 var url = require('url');
 
 module.exports = function(args) {
@@ -23,7 +22,7 @@ module.exports = function(args) {
 					else if (author_response.statusCode == 200) {
 						var $ = cheerio.load(author_body);
 						var anchors = $('a.bb:not(.nobck)');
-						var story_key = sid.split("-").slice(0,-3).join("-");
+						var story_key = sid.split("-").slice(0,-1).join("-").replace(/(-ch-([0-9]){2})\b/g, "");
 						var chapters = [];
 						i.debug("STORY_KEY = "+story_key);
 						Object.keys(anchors).forEach( anchor => {
@@ -114,16 +113,17 @@ module.exports = function(args) {
 							i.debug("Series detected, "+chapters.length+" chapters found");
 							getAllChapters(chapters, function(story_data) {
 								i.debug("Compiling Story");
-								i.debug("AUTHOR = "+chapters[0].author);
-								i.debug("TITLE = "+chapters[0].title);
-								compile({
+								i.debug("AUTHOR = "+story_data[0].author);
+								i.debug("TITLE = "+story_data[0].title);
+								var story_construct = {
 									meta: {
-										title: chapters[0].title,
-										author: chapters[0].author
+										title: story_data[0].title,
+										author: story_data[0].author
 									},
 									content: story_data,
 									args: args
-								});
+								};
+								compile(story_construct);
 							});
 						}
 					}
