@@ -18,12 +18,10 @@ npm install yaffs --global
 ## Usage
 
 ```bash
-yaffs [Options] 
+yaffs <url> [Options] 
     [--debug, -d] Render Debug Information 
-    [--multi-chapter, -m] Download entire series (Use only if the story is actually in a series)
     [--output, -o] Output Directory/File
-    [--format, -f] Output format (epub, html)
-    [--url, -s] Story URL *REQUIRED*
+    [--format, -f] Output format (epub only currently)
     [--help, -h] This prompt
 ```
 

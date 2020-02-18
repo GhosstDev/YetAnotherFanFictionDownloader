@@ -1,7 +1,7 @@
 var request = require("request");
 var path = require("path");
 var cheerio = require("cheerio");
-var epub = require('epub-gen');
+var gen = require('../gen/epub');
 var url = require('url');
 
 module.exports = function(args) {
@@ -67,7 +67,6 @@ module.exports = function(args) {
 											var pages = $("select[name=page]").children().length;
 						
 											for (var p = 1; p <= pages; p++) {
-												i.debug("Downloading Page "+p);
 												request({
 													uri: "https://www.literotica.com/s/"+sid+"?page="+p,
 												}, function(error, response, body) {
@@ -158,19 +157,16 @@ function compile(data) {
 	}
 
 	if (format == "epub") {
-		new epub({
+		gen({
+			file: filename,
 			title: data.meta.title,
-			author: data.meta.author,
-			content: data.content
-		}, filename).promise.then(
-		() => {console.log("Successfully downloaded Ebook ("+filename+")"); i.stop()}, 
-		(err) => {
-			if (err) {
-				console.error("Failed to download Ebook (use --debug flag to see more detailed errors");
-				i.debug("Failed to compile pages into Ebook");
-				i.debug(err);
-				i.stop();
-			}
+			content: data.content,
+			author: data.meta.author
+		}).then(function(res) {
+			console.log("Completed Ebook `"+filename+"`");
+			i.stop();
+		}).catch(function(error) {
+			i.stop();
 		});
 	}
 }
@@ -216,10 +212,10 @@ function getChapter(sid, _callback) {
 
 					i.debug("Multi Page Story Detected");
 					var page_data = [];
+					page_data[sid] = [];
 					var pages = $("select[name=page]").children().length;
 
 					for (var p = 1; p <= pages; p++) {
-						i.debug("Downloading Page "+p);
 						request({
 							uri: "https://www.literotica.com/s/"+sid+"?page="+p,
 						}, function(error, response, body) {
@@ -236,9 +232,9 @@ function getChapter(sid, _callback) {
 							} else if (response.statusCode == 200) {
 								i.debug("Page "+page+" Downloaded");
 								var $ = cheerio.load(body);
-								page_data[page-1] = $("div.b-story-body-x").html();
-								if (page_data.length == pages) {
-									_callback(page_data, story_title, story_author);
+								page_data[sid][page-1] = $("div.b-story-body-x").html();
+								if (page_data[sid].filter((ent)=>{return ent !== undefined}).length == pages) {
+									_callback(page_data[sid], story_title, story_author);
 								}
 							} else {
 								console.error("Failed to download Ebook (use --debug flag to see more detailed errors)")

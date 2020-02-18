@@ -3,8 +3,6 @@ var yargs = require("yargs");
 var exec = require('child_process').exec;
 var timers = require('timers');
 var scraper = require('./bin/scraper');
-
-var args = process.argv.slice(2);
 var argv = yargs
     .option('debug', {
         alias: 'd',
@@ -30,6 +28,7 @@ var argv = yargs
     .alias('help', 'h')
     .argv;
 
+exports.argv = argv;
 exports.debug = function(message, inline) {var inline = inline || false; if (argv.debug) {if (inline) {process.stdout.write(message);} else {console.debug("[DEBUG]: "+message);}}};
 exports.stop = function() {timers.clearInterval(workIndicator);}
 var workIndicator = timers.setInterval(function() {process.stdout.write(".");}, 1000);
