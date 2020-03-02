@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
-
-h1,h2,h3,h4,h5,h6 {font-family: opensans, helvetica, sans-serif;}
+h1,h2,h3,h4,h5,h6 {font-family: helvetica, sans-serif;}
+span.center {text-align:center;margin:auto;}
 p, span{font-family: roboto, helvetica, sans-serif;}
